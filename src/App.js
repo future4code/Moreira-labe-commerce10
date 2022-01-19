@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import styled from "styled-components";
+import "./App.css";
+import Carrinhos from "./Components/Carrinhos";
+import Filtros from "./Components/Filtros";
+import Produtos from "./Components/Produtos";
 
+ const Container = styled.div`
+   display: flex;
+   justify-content: space-between;
+   margin: 10px;
+ `
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className="App">
+
+      <Filtros />
+      <Produtos />
+      <Carrinhos />
+    </Container>
   );
 }
 
