@@ -6,6 +6,7 @@ import Imgs2 from "../imgCamiseta/Nasa.jpg";
 import Imgs3 from "../imgCamiseta/Nave.jpg";
 import Imgs4 from "../imgCamiseta/OnibusEspacial.jpg";
 import Imgs5 from "../imgCamiseta/SistemaSolar.jpg";
+import CardProduto from "./CardProduto";
 
 const CardContainer = styled.div`
   display: flex;
@@ -37,46 +38,46 @@ img{
 
 `;
 class Produtos extends React.Component {
-  state = {
-    listaImagen: [
-      {
-        id: Date.now(),
-        Nome: "Astronauta",
-        Valor: "R$ 29,90",
-        img: Imgs,
-      },
-      {
-        id: Date.now(),
-        Nome: "Estampada",
-        Valor: "R$ 29,90",
-        img: Imgs1,
-      },
-      {
-        id: Date.now(),
-        Nome: "Nasa",
-        Valor: "R$ 89,90",
-        img: Imgs2,
-      },
-      {
-        id: Date.now(),
-        Nome: "Nave",
-        Valor: "R$ 89,90",
-        img: Imgs3,
-      },
-      {
-        id: Date.now(),
-        Nome: "Onibus Espacial",
-        Valor: "R$ 39,90",
-        img: Imgs4,
-      },
-      {
-        id: Date.now(),
-        Nome: "Sistema Solar",
-        Valor: "R$ 39,90",
-        img: Imgs5,
-      },
-    ],
-  };
+  // state = {
+  //   listaImagen: [
+  //     {
+  //       id: Date.now(),
+  //       Nome: "Astronauta",
+  //       Valor: "R$ 29,90",
+  //       img: Imgs,
+  //     },
+  //     {
+  //       id: Date.now(),
+  //       Nome: "Estampada",
+  //       Valor: "R$ 29,90",
+  //       img: Imgs1,
+  //     },
+  //     {
+  //       id: Date.now(),
+  //       Nome: "Nasa",
+  //       Valor: "R$ 89,90",
+  //       img: Imgs2,
+  //     },
+  //     {
+  //       id: Date.now(),
+  //       Nome: "Nave",
+  //       Valor: "R$ 89,90",
+  //       img: Imgs3,
+  //     },
+  //     {
+  //       id: Date.now(),
+  //       Nome: "Onibus Espacial",
+  //       Valor: "R$ 39,90",
+  //       img: Imgs4,
+  //     },
+  //     {
+  //       id: Date.now(),
+  //       Nome: "Sistema Solar",
+  //       Valor: "R$ 39,90",
+  //       img: Imgs5,
+  //     },
+  //   ],
+  // };
 
   adicionarCarrinho = () => {
     this.setState({
@@ -87,14 +88,9 @@ class Produtos extends React.Component {
   };
 
   render() {
-    const apareceImagem = this.state.listaImagen.map((nome) => {
+    const apareceImagem = this.props.listaImagem.map((nome) => {
       return (
-        <Home>
-          <img src={nome.img} />
-          <h4>{nome.Nome}</h4>
-          <h4>{nome.Valor}</h4>
-          <button onClick={this.adicionarCarrinho}>Adicionar</button>
-        </Home>
+        <CardProduto adicionarCarrinho={this.props.funcao} item={nome} />
       );
     });
 
