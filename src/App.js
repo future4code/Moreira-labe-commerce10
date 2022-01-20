@@ -63,28 +63,19 @@ class App extends React.Component {
 
     pesquisaNome: "",
 
-    listaFiltrada: [],
-
   };
 
   atualizarPesquisa = (e) => {
     this.setState({ pesquisaNome: e.target.value })
-    console.log(this.state.pesquisaNome);
-    const novaLista = this.props.listaImagem.filter((item) => {
-
-      return item.Nome.includes(this.state.pesquisaNome)
-    })
-    this.setState({ listaFiltrada: novaLista })
   }
+
+
 
   adicionarCarrinho = (id) => {
     const novoItem = this.state.listaItens.filter((item) => {
       return id === item.id
     })
 
-    // const listaFiltrada = this.props.listaImagem.filter((item) => {
-    //   return item.Nome.includes(this.state.pesquisaNome)
-    // })
 
     const itemTransformado = {
       id: novoItem.id,
@@ -102,8 +93,8 @@ class App extends React.Component {
       <Container className="App">
         <Header />
 
-        <Filtros atualizar={this.atualizarPesquisa} listaImagem={this.state.listaItens} />
-        <Produtos funcao={this.adicionarCarrinho} listaImagem={this.state.listaFiltrada} />
+        <Filtros atualizarPesquisa={this.atualizarPesquisa} buscaPorNome={this.state.pesquisaNome} listaImagem={this.state.listaItens} />
+        <Produtos funcao={this.adicionarCarrinho} buscaNome={this.state.pesquisaNome} listaImagem={this.state.listaItens} />
         <Carrinhos listaDeCompras={this.state.listaDoCarrinho} />
 
         <Footer />

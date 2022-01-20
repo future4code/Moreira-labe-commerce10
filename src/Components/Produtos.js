@@ -38,66 +38,28 @@ img{
 
 `;
 class Produtos extends React.Component {
-  // state = {
-  //   listaImagen: [
-  //     {
-  //       id: Date.now(),
-  //       Nome: "Astronauta",
-  //       Valor: "R$ 29,90",
-  //       img: Imgs,
-  //     },
-  //     {
-  //       id: Date.now(),
-  //       Nome: "Estampada",
-  //       Valor: "R$ 29,90",
-  //       img: Imgs1,
-  //     },
-  //     {
-  //       id: Date.now(),
-  //       Nome: "Nasa",
-  //       Valor: "R$ 89,90",
-  //       img: Imgs2,
-  //     },
-  //     {
-  //       id: Date.now(),
-  //       Nome: "Nave",
-  //       Valor: "R$ 89,90",
-  //       img: Imgs3,
-  //     },
-  //     {
-  //       id: Date.now(),
-  //       Nome: "Onibus Espacial",
-  //       Valor: "R$ 39,90",
-  //       img: Imgs4,
-  //     },
-  //     {
-  //       id: Date.now(),
-  //       Nome: "Sistema Solar",
-  //       Valor: "R$ 39,90",
-  //       img: Imgs5,
-  //     },
-  //   ],
-  // };
-
-  adicionarCarrinho = () => {
-    this.setState({
-      Nome: this.state.Nome,
-      Valor: this.state.Valor,
-      img: this.state.img,
-    });
-  };
 
   render() {
-    const apareceImagem = this.props.listaImagem.map((nome) => {
-      return (
-        <CardProduto adicionarCarrinho={this.props.funcao} item={nome} />
-      );
-    });
+
+    const filtrarProduto = () => {
+      let produtoFinal = [...this.props.listaImagem]
+      if (this.props.buscaNome) {
+        produtoFinal = produtoFinal.filter((item) => {
+          return item.Nome.toLowerCase().includes(this.props.buscaNome.toLowerCase())
+        })
+      }
+      // if ()
+      return produtoFinal.map((nome) => {
+        return (
+          <CardProduto adicionarCarrinho={this.props.funcao} item={nome} />
+        );
+      });
+    }
 
     return (
       <Container>
         <h3>Produtos</h3>
-        <CardContainer>{apareceImagem}</CardContainer>
+        <CardContainer>{filtrarProduto()}</CardContainer>
       </Container>
     );
   }
