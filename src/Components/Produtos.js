@@ -37,47 +37,7 @@ img{
 }
 
 `;
-class Produtos extends React.Component {
-  // state = {
-  //   listaImagen: [
-  //     {
-  //       id: Date.now(),
-  //       Nome: "Astronauta",
-  //       Valor: "R$ 29,90",
-  //       img: Imgs,
-  //     },
-  //     {
-  //       id: Date.now(),
-  //       Nome: "Estampada",
-  //       Valor: "R$ 29,90",
-  //       img: Imgs1,
-  //     },
-  //     {
-  //       id: Date.now(),
-  //       Nome: "Nasa",
-  //       Valor: "R$ 89,90",
-  //       img: Imgs2,
-  //     },
-  //     {
-  //       id: Date.now(),
-  //       Nome: "Nave",
-  //       Valor: "R$ 89,90",
-  //       img: Imgs3,
-  //     },
-  //     {
-  //       id: Date.now(),
-  //       Nome: "Onibus Espacial",
-  //       Valor: "R$ 39,90",
-  //       img: Imgs4,
-  //     },
-  //     {
-  //       id: Date.now(),
-  //       Nome: "Sistema Solar",
-  //       Valor: "R$ 39,90",
-  //       img: Imgs5,
-  //     },
-  //   ],
-  // };
+class Produtos extends React.Component {  
 
   adicionarCarrinho = () => {
     this.setState({
