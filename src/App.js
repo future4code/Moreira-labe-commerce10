@@ -15,10 +15,16 @@ import Imgs5 from "./imgCamiseta/SistemaSolar.jpg";
 
 const Container = styled.div`
    display: flex;
+   flex-direction: column;
    justify-content: space-between;
    margin: 10px;
    width: 100vw;
  `
+const ContainerMain = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 class App extends React.Component {
   state = {
     listaItens: [
@@ -100,12 +106,12 @@ class App extends React.Component {
 
     return (
       <Container className="App">
-        <Header />
-
-        <Filtros atualizar={this.atualizarPesquisa} listaImagem={this.state.listaItens} />
-        <Produtos funcao={this.adicionarCarrinho} listaImagem={this.state.listaFiltrada} />
-        <Carrinhos listaDeCompras={this.state.listaDoCarrinho} />
-
+        <Header/>
+        <ContainerMain>
+          <Filtros atualizar={this.atualizarPesquisa} listaImagem={this.state.listaItens} />
+          <Produtos funcao={this.adicionarCarrinho} listaImagem={this.state.listaFiltrada} />
+          <Carrinhos listaDeCompras={this.state.listaDoCarrinho} />
+        </ContainerMain>
         <Footer />
       </Container>
     );
