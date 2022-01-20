@@ -9,6 +9,7 @@ import Produtos from "./Components/Produtos";
    display: flex;
    justify-content: space-between;
    margin: 10px;
+   width: 100vw;
  `
 function App() {
   return (
