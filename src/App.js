@@ -13,7 +13,7 @@ import Imgs3 from "./imgCamiseta/Nave.jpg";
 import Imgs4 from "./imgCamiseta/OnibusEspacial.jpg";
 import Imgs5 from "./imgCamiseta/SistemaSolar.jpg";
 
- const Container = styled.div`
+const Container = styled.div`
    display: flex;
    flex-direction: column;
    justify-content: space-between;
@@ -65,13 +65,32 @@ class App extends React.Component {
         img: Imgs5,
       },
     ],
-    listaDoCarrinho: []
+    listaDoCarrinho: [],
+
+    pesquisaNome: "",
+
+    listaFiltrada: [],
+
   };
 
-  adicionarCarrinho = (id) =>{
-    const novoItem= this.state.listaItens.filter((item)=>{
+  atualizarPesquisa = (e) => {
+    this.setState({ pesquisaNome: e.target.value })
+    console.log(this.state.pesquisaNome);
+    const novaLista = this.props.listaImagem.filter((item) => {
+
+      return item.Nome.includes(this.state.pesquisaNome)
+    })
+    this.setState({ listaFiltrada: novaLista })
+  }
+
+  adicionarCarrinho = (id) => {
+    const novoItem = this.state.listaItens.filter((item) => {
       return id === item.id
     })
+
+    // const listaFiltrada = this.props.listaImagem.filter((item) => {
+    //   return item.Nome.includes(this.state.pesquisaNome)
+    // })
 
     const itemTransformado = {
       id: novoItem.id,
@@ -79,19 +98,19 @@ class App extends React.Component {
       texto: novoItem.Nome,
       preco: novoItem.Valor
     }
-    this.setState({listaDoCarrinho: [...this.state.listaDoCarrinho, itemTransformado]})
+    this.setState({ listaDoCarrinho: [...this.state.listaDoCarrinho, itemTransformado] })
     console.log("Adicionando")
   }
 
-  render(){
+  render() {
 
     return (
       <Container className="App">
         <Header/>
-      <ContainerMain>
-        <Filtros listaImagem={this.state.listaItens}/>
-        <Produtos funcao={this.adicionarCarrinho} listaImagem={this.state.listaItens} />
-        <Carrinhos listaDeCompras={this.state.listaDoCarrinho} />
+        <ContainerMain>
+          <Filtros atualizar={this.atualizarPesquisa} listaImagem={this.state.listaItens} />
+          <Produtos funcao={this.adicionarCarrinho} listaImagem={this.state.listaFiltrada} />
+          <Carrinhos listaDeCompras={this.state.listaDoCarrinho} />
         </ContainerMain>
         <Footer />
       </Container>
