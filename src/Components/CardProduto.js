@@ -6,6 +6,7 @@ import Imgs2 from "../imgCamiseta/Nasa.jpg";
 import Imgs3 from "../imgCamiseta/Nave.jpg";
 import Imgs4 from "../imgCamiseta/OnibusEspacial.jpg";
 import Imgs5 from "../imgCamiseta/SistemaSolar.jpg";
+import Carrinho from "../imgCamiseta/carrinho.png";
 
 const Home = styled.div`
   display: flex;
