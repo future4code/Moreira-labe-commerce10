@@ -36,11 +36,11 @@ export default class Carrinhos extends React.Component {
   }
 
   render() {
-    const renderizarLista = this.state.listaDoCarrinho.map((item)=>{
+    const renderizarLista = this.props.listaDeCompras.map((item)=>{
       return <ItemCarrinho produto={item} funcao={()=>{this.apagarItem(item.id)}}/>
     })
 
-    const total = this.state.listaDoCarrinho.reduce(
+    const total = this.props.listaDeCompras.reduce(
       ((total,item)=>{return total+item.preco}),0)
 
 
