@@ -33,7 +33,7 @@ export default class CardProduto extends Component {
         <img src={this.props.item.img} />
         <h4>{this.props.item.Nome}</h4>
         <h4>R$ {this.props.item.Valor.toFixed(2).toString().replace(".", ",")}</h4>
-        <button onClick={this.props.adicionarCarrinho}>Adicionar</button>
+        <button onClick={()=>this.props.adicionarCarrinho(this.props.item.id)}>Adicionar</button>
       </Home>
     );
   }

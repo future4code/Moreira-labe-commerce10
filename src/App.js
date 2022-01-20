@@ -14,52 +14,52 @@ import Imgs4 from "./imgCamiseta/OnibusEspacial.jpg";
 import Imgs5 from "./imgCamiseta/SistemaSolar.jpg";
 
 const Container = styled.div`
+   box-sizing: border-box;
    display: flex;
    flex-direction: column;
-   justify-content: space-between;
-   margin: 10px;
    width: 100vw;
  `
 const ContainerMain = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100vw;
 `
 
 class App extends React.Component {
   state = {
     listaItens: [
       {
-        id: Date.now(),
+        id: 1,
         Nome: "Astronauta",
         Valor: 29.90,
         img: Imgs,
       },
       {
-        id: Date.now(),
+        id: 2,
         Nome: "Estampada",
         Valor: 29.90,
         img: Imgs1,
       },
       {
-        id: Date.now(),
+        id: 3,
         Nome: "Nasa",
         Valor: 89.90,
         img: Imgs2,
       },
       {
-        id: Date.now(),
+        id: 4,
         Nome: "Nave",
         Valor: 89.90,
         img: Imgs3,
       },
       {
-        id: Date.now(),
+        id: 5,
         Nome: "Onibus Espacial",
         Valor: 39.90,
         img: Imgs4,
       },
       {
-        id: Date.now(),
+        id: 6,
         Nome: "Sistema Solar",
         Valor: 39.90,
         img: Imgs5,
@@ -87,19 +87,42 @@ class App extends React.Component {
     const novoItem = this.state.listaItens.filter((item) => {
       return id === item.id
     })
-
-    // const listaFiltrada = this.props.listaImagem.filter((item) => {
-    //   return item.Nome.includes(this.state.pesquisaNome)
-    // })
-
     const itemTransformado = {
-      id: novoItem.id,
+      id: novoItem[0].id,
       quantidade: 1,
-      texto: novoItem.Nome,
-      preco: novoItem.Valor
+      texto: novoItem[0].Nome,
+      preco: novoItem[0].Valor
     }
-    this.setState({ listaDoCarrinho: [...this.state.listaDoCarrinho, itemTransformado] })
+    const novaLista = this.state.listaDoCarrinho.map((item)=>{
+      if(item.id===itemTransformado.id){
+        return {...item, quantidade: item.quantidade+1}
+      } else {
+        return item
+      }
+    })
+    const aux = this.state.listaDoCarrinho.filter((item) => {
+      return id === item.id
+    })
+    if (aux.length !== 0){
+      this.setState({listaDoCarrinho: novaLista})
+    } else{
+      this.setState({ listaDoCarrinho: [...this.state.listaDoCarrinho, itemTransformado] })
+    }
     console.log("Adicionando")
+  }
+
+  apagarItemCarrinho = (id) => {
+    const novaLista = this.state.listaDoCarrinho.map((item)=>{
+      if(item.id===id){
+        return {...item, quantidade: item.quantidade-1}
+      }else{
+        return item
+      }
+    })
+    const listaAtualizada = novaLista.filter((item) => {
+      return item.quantidade>0
+    })
+    this.setState({listaDoCarrinho: listaAtualizada})
   }
 
   render() {
@@ -109,8 +132,8 @@ class App extends React.Component {
         <Header/>
         <ContainerMain>
           <Filtros atualizar={this.atualizarPesquisa} listaImagem={this.state.listaItens} />
-          <Produtos funcao={this.adicionarCarrinho} listaImagem={this.state.listaFiltrada} />
-          <Carrinhos listaDeCompras={this.state.listaDoCarrinho} />
+          <Produtos funcao={this.adicionarCarrinho} listaImagem={this.state.listaItens} />
+          <Carrinhos funcao={this.apagarItemCarrinho} listaDeCompras={this.state.listaDoCarrinho} />
         </ContainerMain>
         <Footer />
       </Container>

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ItemCarrinho from './ItemCarrinho';
+import iconeCar from '../imgCamiseta/carrinho.png'
 
 const Container = styled.div`
   border: 1px solid black;
@@ -8,47 +9,42 @@ const Container = styled.div`
   padding: 10px;
   text-align: left;
 `
-
+const IconeTexto = styled.div`
+  height: 30px;
+  display: flex;
+  align-items: center;
+  img{
+    height: 100%;
+    margin-right: 10px;
+  }
+  span{
+    margin-left: 5px;
+  }
+`
 
 export default class Carrinhos extends React.Component {
-  state = {
-    listaDoCarrinho: [
-      {
-        id: 1,
-        quantidade: 2,
-        texto: 'Produto1',
-        preco: 22
-      },
-      {
-        id: Date.now(),
-        quantidade: 1,
-        texto: 'Produto2',
-        preco: 20
-      }
-    ]
-  }
-
-  apagarItem = (id) => {
-    const novaLista = this.state.listaDoCarrinho.filter((item)=>{
-      return id !== item.id
-    })
-    this.setState({listaDoCarrinho: novaLista})
-  }
 
   render() {
     const renderizarLista = this.props.listaDeCompras.map((item)=>{
-      return <ItemCarrinho produto={item} funcao={()=>{this.apagarItem(item.id)}}/>
+      return <ItemCarrinho produto={item} funcao={()=>{this.props.funcao(item.id)}}/>
     })
 
     const total = this.props.listaDeCompras.reduce(
       ((total,item)=>{return total+item.preco}),0)
+    
+    const totalDeitens = this.props.listaDeCompras.reduce(
+      ((total,item)=>{return total+item.quantidade}),0)
 
 
     return (
     <Container>
-        <h3>Carrrinho:</h3>
+        <IconeTexto>
+          <img src={iconeCar} />
+          <h3>Carrrinho</h3>
+          <span>{totalDeitens}</span>
+        </IconeTexto>
         {renderizarLista}
-        <p>Valor total: R${total.toFixed(2).toString().replace(".", ",")}</p>
+        {total!==0&&<p>Valor total: R${total.toFixed(2).toString().replace(".", ",")}</p>}
     </Container>
     )
   }
