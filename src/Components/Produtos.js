@@ -22,18 +22,10 @@ const Cabecalho = styled.div`
   padding: 5px;
 `
 
-class Produtos extends React.Component {  
 
-  adicionarCarrinho = () => {
-    this.setState({
-      Nome: this.state.Nome,
-      Valor: this.state.Valor,
-      img: this.state.img,
-    });
-  };
+class Produtos extends React.Component {
 
   render() {
-
     const filtrarProduto = () => {
       let produtoFinal = [...this.props.listaImagem]
       if (this.props.buscaNome) {
@@ -67,15 +59,11 @@ class Produtos extends React.Component {
       });
     }
 
-
-
-    const quantidadeDeProdutos = this.props.listaImagem.length
+    const listaFinal = filtrarProduto()
+    const quantidadeDeProdutos = listaFinal.length
 
     return (
       <Container>
-        <h3>Produtos</h3>
-        <CardContainer>{filtrarProduto()}</CardContainer>
-      </Container >
         <Cabecalho>
           <span>Quantidade de produtos: {quantidadeDeProdutos}</span>
           <h3>Produtos</h3>
@@ -87,8 +75,7 @@ class Produtos extends React.Component {
             </select>
           </span>
         </Cabecalho>
-        <CardContainer>{filtrarProduto()}</CardContainer>
-//         <CardContainer>{apareceImagem}</CardContainer>
+        <CardContainer>{listaFinal}</CardContainer>
       </Container>
     );
   }
