@@ -4,12 +4,16 @@ import ItemCarrinho from './ItemCarrinho';
 import iconeCar from '../imgCamiseta/carrinho.png'
 
 const Container = styled.div`
+  box-sizing: border-box;
   border-left: 1px solid white;
-  width: 15vw;
+  width: 20vw;
   padding: 10px;
   text-align: left;
   color: white;
   font-weight: bold;
+  h4{
+    color: red;
+  }
 `
 const IconeTexto = styled.div`
   height: 30px;
@@ -64,8 +68,11 @@ export default class Carrinhos extends React.Component {
         {renderizarLista}
         {total!==0&&<p>
           Valor total: R${total.toFixed(2).toString().replace(".", ",")}
-          <ContainerBotao><Botao>Finalizar Compra</Botao></ContainerBotao>
+          <ContainerBotao>
+            <Botao onClick={this.props.funcaoFinalizar}>Finalizar Compra</Botao>
+          </ContainerBotao>
           </p>}
+        {this.props.compra&&<h4>Agradecemos pela sua compra!</h4>}
     </Container>
     )
   }

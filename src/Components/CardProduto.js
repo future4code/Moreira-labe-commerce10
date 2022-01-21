@@ -2,17 +2,15 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 const Home = styled.div`
+  box-sizing: border-box;
   display: flex;
   justify-content: end;
   align-items: center;
   flex-direction: column;
-  border: 1px solid black;
   border-radius: 10px;
   padding: 10px;
-  margin: 10px;
-  height: 200px;
-  width: 20%;
-  /* color: white; */
+  margin-top: 10px;
+  height: 190px;
   background-color: white;
   h4 {
     margin: 2px;

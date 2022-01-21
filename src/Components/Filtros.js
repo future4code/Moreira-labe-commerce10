@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
-import Produtos from './Produtos'
 
 const ContainerFiltro = styled.div`
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-border: 1px solid black;
-width: 20vw;
-height: 80vh;
-margin-left: 10px;
-padding-left: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-right: 1px solid white;
+  width: 20vw;
+  /* height: 80vh; */
+  /* margin-left: 10px; */
+  padding-left: 10px;
+  color: white;
 `
 
 const Input = styled.input`
-margin-bottom: 20px;
+  margin-bottom: 20px;
 `
 
 
