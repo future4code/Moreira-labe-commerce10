@@ -4,10 +4,12 @@ import ItemCarrinho from './ItemCarrinho';
 import iconeCar from '../imgCamiseta/carrinho.png'
 
 const Container = styled.div`
-  border: 1px solid black;
-  width: 250px;
+  border-left: 1px solid white;
+  width: 15vw;
   padding: 10px;
   text-align: left;
+  color: white;
+  font-weight: bold;
 `
 const IconeTexto = styled.div`
   height: 30px;
@@ -21,6 +23,22 @@ const IconeTexto = styled.div`
     margin-left: 5px;
   }
 `
+const ContainerBotao = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+`
+
+const Botao = styled.button`
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: white;
+  color: red;
+  :hover{
+    transition: transform .5s ease;
+    transform: scale(1.5);
+  }
+`
 
 export default class Carrinhos extends React.Component {
 
@@ -30,7 +48,7 @@ export default class Carrinhos extends React.Component {
     })
 
     const total = this.props.listaDeCompras.reduce(
-      ((total,item)=>{return total+item.preco}),0)
+      ((total,item)=>{return total+(item.quantidade*item.preco)}),0)
     
     const totalDeitens = this.props.listaDeCompras.reduce(
       ((total,item)=>{return total+item.quantidade}),0)
@@ -44,7 +62,10 @@ export default class Carrinhos extends React.Component {
           <span>{totalDeitens}</span>
         </IconeTexto>
         {renderizarLista}
-        {total!==0&&<p>Valor total: R${total.toFixed(2).toString().replace(".", ",")}</p>}
+        {total!==0&&<p>
+          Valor total: R${total.toFixed(2).toString().replace(".", ",")}
+          <ContainerBotao><Botao>Finalizar Compra</Botao></ContainerBotao>
+          </p>}
     </Container>
     )
   }

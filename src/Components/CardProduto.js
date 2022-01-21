@@ -1,12 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import Imgs from "../imgCamiseta/Astronauta.jpg";
-import Imgs1 from "../imgCamiseta/Estampada.jpg";
-import Imgs2 from "../imgCamiseta/Nasa.jpg";
-import Imgs3 from "../imgCamiseta/Nave.jpg";
-import Imgs4 from "../imgCamiseta/OnibusEspacial.jpg";
-import Imgs5 from "../imgCamiseta/SistemaSolar.jpg";
-import Carrinho from "../imgCamiseta/carrinho.png";
 
 const Home = styled.div`
   display: flex;
@@ -17,12 +10,31 @@ const Home = styled.div`
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
+  height: 200px;
+  width: 20%;
+  /* color: white; */
+  background-color: white;
   h4 {
     margin: 2px;
   }
   width: 150px;
   img {
     width: 100%;
+    height: 60%;
+    box-shadow: 2px 2px 5px gray;
+    :hover{
+      transition: transform .5s ease;
+      transform: scale(1.5);
+    }
+  }
+  button {
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    :hover{
+      opacity: .5;
+    }
   }
 `;
 

@@ -4,9 +4,12 @@ import styled from 'styled-components';
 const Container = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 5px;
     border-bottom: 1px solid black;
     border-top: 1px solid black;
+    background-color: white;
+    color: black;
 `
 const Botao = styled.button`
   cursor: pointer;
