@@ -25,14 +25,14 @@ export default class Filtros extends Component {
 
       <ContainerFiltro>
         <h3>Filtros</h3>
-        Valor mínimo: <Input type="number" />
-        Valor máximo: <Input type="number" />
+        Valor mínimo: <Input type="number" onChange={this.props.buscaMinimo} value={this.props.buscaPorValorMinimo} />
+
+
+        Valor máximo: <Input type="number" onChange={this.props.buscaMaximo} value={this.props.buscaPorValorMaximo} />
 
         Busca por nome: <Input type="text" placeholder="Pesquisa" value={this.props.buscaPorNome} onChange={this.props.atualizarPesquisa} />
 
       </ContainerFiltro>
-
-
     )
   }
 }

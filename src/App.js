@@ -14,11 +14,11 @@ import Imgs4 from "./imgCamiseta/OnibusEspacial.jpg";
 import Imgs5 from "./imgCamiseta/SistemaSolar.jpg";
 
 const Container = styled.div`
-   display: flex;
-   justify-content: space-between;
-   margin: 10px;
-   width: 100vw;
- `
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  width: 100vw;
+`
 class App extends React.Component {
   state = {
     listaItens: [
@@ -63,38 +63,50 @@ class App extends React.Component {
 
     pesquisaNome: "",
 
+    valorMinimo: "",
+
+    valorMaximo: "",
+
   };
 
   atualizarPesquisa = (e) => {
     this.setState({ pesquisaNome: e.target.value })
   }
 
-
-
-  adicionarCarrinho = (id) => {
-    const novoItem = this.state.listaItens.filter((item) => {
-      return id === item.id
-    })
-
-
-    const itemTransformado = {
-      id: novoItem.id,
-      quantidade: 1,
-      texto: novoItem.Nome,
-      preco: novoItem.Valor
-    }
-    this.setState({ listaDoCarrinho: [...this.state.listaDoCarrinho, itemTransformado] })
-    console.log("Adicionando")
+  buscaMinimo = (e) => {
+    this.setState({ valorMinimo: e.target.value })
   }
 
-  render() {
+  buscaMaximo = (e) => {
+    this.setState({ valorMaximo: e.target.value })
+  }
 
+  // adicionarCarrinho = (id) => {
+  //   const novoItem = this.state.listaItens.filter((item) => {
+  //     return id === item.id
+  //   })
+
+
+  //   const itemTransformado = {
+  //     id: novoItem.id,
+  //     quantidade: 1,
+  //     texto: novoItem.Nome,
+  //     preco: novoItem.Valor
+  //   }
+  //   this.setState({ listaDoCarrinho: [...this.state.listaDoCarrinho, itemTransformado] })
+  //   console.log("Adicionando")
+  // }
+
+  render() {
+    console.log(this);
     return (
       <Container className="App">
         <Header />
 
-        <Filtros atualizarPesquisa={this.atualizarPesquisa} buscaPorNome={this.state.pesquisaNome} listaImagem={this.state.listaItens} />
-        <Produtos funcao={this.adicionarCarrinho} buscaNome={this.state.pesquisaNome} listaImagem={this.state.listaItens} />
+        <Filtros atualizarPesquisa={this.atualizarPesquisa} buscaPorNome={this.state.pesquisaNome} buscaPorValorMinimo={this.state.valorMinimo} buscaMinimo={this.buscaMinimo} buscaPorValorMaximo={this.state.valorMaximo} buscaMaximo={this.buscaMaximo} />
+
+        <Produtos funcao={this.adicionarCarrinho} buscaNome={this.state.pesquisaNome} listaImagem={this.state.listaItens} buscaValorMinimo={this.state.valorMinimo} buscaValorMaximo={this.state.valorMaximo} />
+
         <Carrinhos listaDeCompras={this.state.listaDoCarrinho} />
 
         <Footer />
@@ -102,5 +114,4 @@ class App extends React.Component {
     );
   }
 }
-
 export default App;

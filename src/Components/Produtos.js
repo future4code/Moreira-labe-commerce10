@@ -45,10 +45,28 @@ class Produtos extends React.Component {
       let produtoFinal = [...this.props.listaImagem]
       if (this.props.buscaNome) {
         produtoFinal = produtoFinal.filter((item) => {
-          return item.Nome.toLowerCase().includes(this.props.buscaNome.toLowerCase())
+          if (item.Nome.toLowerCase().includes(this.props.buscaNome.toLowerCase())) {
+            return item
+          }
         })
       }
-      // if ()
+      if (this.props.buscaValorMinimo) {
+        produtoFinal = produtoFinal.filter((item) => {
+          if (item.Valor >= this.props.buscaValorMinimo) {
+            return item
+          }
+        })
+      }
+
+      if (this.props.buscaValorMaximo) {
+        produtoFinal = produtoFinal.filter((item) => {
+          if (item.Valor <= this.props.buscaValorMaximo) {
+            return item
+          }
+        })
+      }
+
+
       return produtoFinal.map((nome) => {
         return (
           <CardProduto adicionarCarrinho={this.props.funcao} item={nome} />
@@ -56,11 +74,13 @@ class Produtos extends React.Component {
       });
     }
 
+
+
     return (
       <Container>
         <h3>Produtos</h3>
         <CardContainer>{filtrarProduto()}</CardContainer>
-      </Container>
+      </Container >
     );
   }
 }
