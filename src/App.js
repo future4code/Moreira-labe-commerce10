@@ -6,12 +6,8 @@ import Filtros from "./Components/Filtros";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import Produtos from "./Components/Produtos";
-import Imgs from "./imgCamiseta/Astronauta.jpg";
-import Imgs1 from "./imgCamiseta/Estampada.jpg";
-import Imgs2 from "./imgCamiseta/Nasa.jpg";
-import Imgs3 from "./imgCamiseta/Nave.jpg";
-import Imgs4 from "./imgCamiseta/OnibusEspacial.jpg";
-import Imgs5 from "./imgCamiseta/SistemaSolar.jpg";
+import { Itens } from "./Data/Itens";
+import imagemDeFundo from './imgCamiseta/universo.jpg'
 
 const Container = styled.div`
    box-sizing: border-box;
@@ -20,51 +16,15 @@ const Container = styled.div`
    width: 100vw;
  `
 const ContainerMain = styled.div`
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   width: 100vw;
+  background-image: url(${imagemDeFundo});
 `
 
 class App extends React.Component {
   state = {
-    listaItens: [
-      {
-        id: 1,
-        Nome: "Astronauta",
-        Valor: 29.90,
-        img: Imgs,
-      },
-      {
-        id: 2,
-        Nome: "Estampada",
-        Valor: 29.90,
-        img: Imgs1,
-      },
-      {
-        id: 3,
-        Nome: "Nasa",
-        Valor: 89.90,
-        img: Imgs2,
-      },
-      {
-        id: 4,
-        Nome: "Nave",
-        Valor: 89.90,
-        img: Imgs3,
-      },
-      {
-        id: 5,
-        Nome: "Onibus Espacial",
-        Valor: 39.90,
-        img: Imgs4,
-      },
-      {
-        id: 6,
-        Nome: "Sistema Solar",
-        Valor: 39.90,
-        img: Imgs5,
-      },
-    ],
     listaDoCarrinho: [],
 
     pesquisaNome: "",
@@ -75,16 +35,23 @@ class App extends React.Component {
 
   atualizarPesquisa = (e) => {
     this.setState({ pesquisaNome: e.target.value })
-    console.log(this.state.pesquisaNome);
-    const novaLista = this.props.listaImagem.filter((item) => {
-
-      return item.Nome.includes(this.state.pesquisaNome)
-    })
-    this.setState({ listaFiltrada: novaLista })
+    console.log(this.state.pesquisaNome)
   }
+  componentDidMount = () => {
+    this.setState({listaFiltrada: Itens});
+  };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.pesquisaNome !== this.state.pesquisaNome) {
+      const novaLista = Itens.filter((item) => {
+        return item.Nome.toLowerCase().includes(this.state.pesquisaNome.toLowerCase())
+      })
+      this.setState({ listaFiltrada: novaLista })
+    }
+  };
 
   adicionarCarrinho = (id) => {
-    const novoItem = this.state.listaItens.filter((item) => {
+    const novoItem = Itens.filter((item) => {
       return id === item.id
     })
     const itemTransformado = {
@@ -126,13 +93,12 @@ class App extends React.Component {
   }
 
   render() {
-
     return (
       <Container className="App">
         <Header/>
         <ContainerMain>
-          <Filtros atualizar={this.atualizarPesquisa} listaImagem={this.state.listaItens} />
-          <Produtos funcao={this.adicionarCarrinho} listaImagem={this.state.listaItens} />
+          <Filtros atualizar={this.atualizarPesquisa} listaImagem={Itens} />
+          <Produtos funcao={this.adicionarCarrinho} listaImagem={this.state.listaFiltrada} />
           <Carrinhos funcao={this.apagarItemCarrinho} listaDeCompras={this.state.listaDoCarrinho} />
         </ContainerMain>
         <Footer />
