@@ -7,7 +7,7 @@ INTEGRANTES:
 - Sergio
 
 Nossos itens espaciais são camisetas com estampas relacionadas ao espaço. Os filtros, botão de ordenação, botões de adicionar e remover estão todos funcionando.
-O site funciona apenas para tela desktop. Apenas o botão de finalizar compra que não possui uma função.
+O site funciona apenas para tela desktop.Nova funcionalidae: botão de finalizar compra que esvazia a lista de compras e mostra uma mensagem de agradecimento.
 
 LINK DO SURGE:
 
