@@ -14,13 +14,14 @@ const Container = styled.div`
    display: flex;
    flex-direction: column;
    width: 100vw;
+   min-height: 100vh;
  `
 const ContainerMain = styled.div`
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
   width: 100vw;
   background-image: url(${imagemDeFundo});
+  flex-grow: 1;
 `
 
 class App extends React.Component {
@@ -31,6 +32,9 @@ class App extends React.Component {
 
     listaFiltrada: [],
 
+    ordem: 'crescente',
+
+    compraFinalizada: false
   };
 
   atualizarPesquisa = (e) => {
@@ -39,6 +43,8 @@ class App extends React.Component {
   }
   componentDidMount = () => {
     this.setState({listaFiltrada: Itens});
+    const lista = localStorage.getItem("listaDoCarrinho")
+    this.setState({listaDoCarrinho: JSON.parse(lista) || []})
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -48,6 +54,7 @@ class App extends React.Component {
       })
       this.setState({ listaFiltrada: novaLista })
     }
+    localStorage.setItem("listaDoCarrinho", JSON.stringify(this.state.listaDoCarrinho))
   };
 
   adicionarCarrinho = (id) => {
@@ -75,7 +82,7 @@ class App extends React.Component {
     } else{
       this.setState({ listaDoCarrinho: [...this.state.listaDoCarrinho, itemTransformado] })
     }
-    console.log("Adicionando")
+    this.setState({compraFinalizada: false})
   }
 
   apagarItemCarrinho = (id) => {
@@ -92,14 +99,38 @@ class App extends React.Component {
     this.setState({listaDoCarrinho: listaAtualizada})
   }
 
+  zerarCarrinho = ()=>{
+    this.setState({listaDoCarrinho: []})
+    this.setState({compraFinalizada: true})
+  }
+
+  onChangeOrdenacao = (event) => {
+    this.setState({ordem: event.target.value})
+  }
+
   render() {
+    let listaOrdenada
+    if (this.state.ordem === 'crescente'){
+      listaOrdenada = this.state.listaFiltrada.sort((a,b)=>{return a.Valor-b.Valor})
+    }else if(this.state.ordem === 'decrescente'){
+      listaOrdenada = this.state.listaFiltrada.sort((a,b)=>{return b.Valor-a.Valor})
+    }
+
     return (
       <Container className="App">
         <Header/>
         <ContainerMain>
           <Filtros atualizar={this.atualizarPesquisa} listaImagem={Itens} />
-          <Produtos funcao={this.adicionarCarrinho} listaImagem={this.state.listaFiltrada} />
-          <Carrinhos funcao={this.apagarItemCarrinho} listaDeCompras={this.state.listaDoCarrinho} />
+          <Produtos
+            funcao={this.adicionarCarrinho}
+            listaImagem={listaOrdenada}
+            ordem={this.state.ordem}
+            onChangeOrdem={this.onChangeOrdenacao} />
+          <Carrinhos
+            funcao={this.apagarItemCarrinho}
+            listaDeCompras={this.state.listaDoCarrinho}
+            funcaoFinalizar={this.zerarCarrinho}
+            compra={this.state.compraFinalizada} />
         </ContainerMain>
         <Footer />
       </Container>
