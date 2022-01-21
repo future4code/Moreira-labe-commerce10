@@ -20,22 +20,34 @@ const Input = styled.input`
 
 
 export default class Filtros extends Component {
+  // state = {
+  //   // pesquisaNome: "",
+  // }
+
+  // atualizarPesquisa = (e) => {
+  //   this.setState({ pesquisaNome: e.target.value })
+  // }
 
   render() {
 
+    // const listaFiltrada = this.props.listaImagem.filter((item) => {
+    //   return item.Nome.includes(this.state.pesquisaNome)
+    // })
+
     return (
+
+
 
       <ContainerFiltro>
         <h3>Filtros</h3>
         Valor mínimo: <Input type="number" onChange={this.props.buscaMinimo} value={this.props.buscaPorValorMinimo} />
-
-
         Valor máximo: <Input type="number" onChange={this.props.buscaMaximo} value={this.props.buscaPorValorMaximo} />
 
-        Busca por nome: <Input type="text" placeholder="Pesquisa" value={this.props.buscaPorNome} onChange={this.props.atualizarPesquisa} />
+        Busca por nome: <Input type="text" placeholder="Pesquisa" value={this.props.pesquisaNome} onChange={this.props.atualizar} />
 
       </ContainerFiltro>
+
+
     )
   }
 }
-

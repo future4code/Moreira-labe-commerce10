@@ -10,7 +10,7 @@ const Home = styled.div`
   border-radius: 10px;
   padding: 10px;
   margin-top: 10px;
-  height: 190px;
+  height: 200px;
   background-color: white;
   h4 {
     margin: 2px;

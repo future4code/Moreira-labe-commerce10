@@ -23,68 +23,39 @@ const ContainerMain = styled.div`
   background-image: url(${imagemDeFundo});
   flex-grow: 1;
 `
+
 class App extends React.Component {
   state = {
     listaDoCarrinho: [],
 
     pesquisaNome: "",
 
+    ordem: 'crescente',
+
+    compraFinalizada: false,
+
     valorMinimo: "",
 
     valorMaximo: "",
-
-    ordem: 'crescente',
-
-    compraFinalizada: false
   };
 
   atualizarPesquisa = (e) => {
     this.setState({ pesquisaNome: e.target.value })
-
   }
-
   buscaMinimo = (e) => {
     this.setState({ valorMinimo: e.target.value })
-
-    console.log(this.state.pesquisaNome)
-
+  }
+  buscaMaximo = (e) => {
+    this.setState({ valorMaximo: e.target.value })
   }
   componentDidMount = () => {
-    this.setState({listaFiltrada: Itens});
     const lista = localStorage.getItem("listaDoCarrinho")
     this.setState({listaDoCarrinho: JSON.parse(lista) || []})
   };
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevState.pesquisaNome !== this.state.pesquisaNome) {
-      const novaLista = Itens.filter((item) => {
-        return item.Nome.toLowerCase().includes(this.state.pesquisaNome.toLowerCase())
-      })
-      this.setState({ listaFiltrada: novaLista })
-    }
+  componentDidUpdate = () => {
     localStorage.setItem("listaDoCarrinho", JSON.stringify(this.state.listaDoCarrinho))
   };
-
-
-  buscaMaximo = (e) => {
-    this.setState({ valorMaximo: e.target.value })
-  }
-
-  // adicionarCarrinho = (id) => {
-  //   const novoItem = this.state.listaItens.filter((item) => {
-  //     return id === item.id
-  //   })
-
-
-  //   const itemTransformado = {
-  //     id: novoItem.id,
-  //     quantidade: 1,
-  //     texto: novoItem.Nome,
-  //     preco: novoItem.Valor
-  //   }
-  //   this.setState({ listaDoCarrinho: [...this.state.listaDoCarrinho, itemTransformado] })
-  //   console.log("Adicionando")
-  // }
 
   adicionarCarrinho = (id) => {
     const novoItem = Itens.filter((item) => {
@@ -140,21 +111,23 @@ class App extends React.Component {
   render() {
     let listaOrdenada
     if (this.state.ordem === 'crescente'){
-      listaOrdenada = this.state.listaFiltrada.sort((a,b)=>{return a.Valor-b.Valor})
+      listaOrdenada = Itens.sort((a,b)=>{return a.Valor-b.Valor})
     }else if(this.state.ordem === 'decrescente'){
-      listaOrdenada = this.state.listaFiltrada.sort((a,b)=>{return b.Valor-a.Valor})
+      listaOrdenada = Itens.sort((a,b)=>{return b.Valor-a.Valor})
     }
+
     return (
       <Container className="App">
         <Header/>
         <ContainerMain>
-          <Filtros 
+          <Filtros
+            atualizar={this.atualizarPesquisa}
             atualizarPesquisa={this.atualizarPesquisa}
             buscaPorNome={this.state.pesquisaNome} 
             buscaPorValorMinimo={this.state.valorMinimo} 
             buscaMinimo={this.buscaMinimo} 
             buscaPorValorMaximo={this.state.valorMaximo} 
-            buscaMaximo={this.buscaMaximo}/>
+            buscaMaximo={this.buscaMaximo} />
           <Produtos
             funcao={this.adicionarCarrinho}
             listaImagem={listaOrdenada}
@@ -162,7 +135,7 @@ class App extends React.Component {
             onChangeOrdem={this.onChangeOrdenacao}
             buscaNome={this.state.pesquisaNome}
             buscaValorMinimo={this.state.valorMinimo}
-            buscaValorMaximo={this.state.valorMaximo}/>
+            buscaValorMaximo={this.state.valorMaximo} />
           <Carrinhos
             funcao={this.apagarItemCarrinho}
             listaDeCompras={this.state.listaDoCarrinho}
@@ -174,4 +147,5 @@ class App extends React.Component {
     );
   }
 }
+
 export default App;

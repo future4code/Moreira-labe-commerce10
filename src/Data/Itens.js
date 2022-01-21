@@ -74,7 +74,7 @@ export const Itens = [
     },
     {
       id: 11,
-      Nome: "Blusa de Frio c/ capuz",
+      Nome: "Blusa c/ capuz",
       Valor: 110.90,
       img: Imgs10,
     },
